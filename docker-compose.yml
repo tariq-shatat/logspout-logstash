@@ -1,0 +1,17 @@
+version: "3"
+services:
+  logspout:
+    container_name: logpout
+    build:
+      context: .
+    #command: 'udp://localhost:5000'
+    environment:
+      - PORT=9002
+      - ALLOW_TTY-"true"
+      - RETRY_STARTUP= "true"
+      - RETRY_SEND= "true"
+      - ROUTE_URIS=logstash+udp://localhost:5000
+      - DOCKER_LABELS=true
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock"
+    network_mode: host
